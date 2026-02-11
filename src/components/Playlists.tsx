@@ -1,6 +1,8 @@
-
+// src/components/Playlists.tsx
 export const Playlists = () => {
   return (
-    <div>Playlists</div>
-  )
-}
+    <div className="playlists">
+      <h2>Playlists</h2>
+    </div>
+  );
+};
