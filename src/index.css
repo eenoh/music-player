@@ -67,26 +67,23 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
+
+  /* NEW: center each panel inside its column like the mockup */
+  justify-items: center;
+
+  /* NEW: creates the top spacing both panels share */
+  padding-top: 3.5rem;
 }
+
 
 .content-section {
-  /* REMOVE the big gray panel */
-  background: transparent;
-  backdrop-filter: none;
-  border: none;
-  box-shadow: none;
-
-  /* optional: keep some spacing, or set to 0 if you want it super tight */
-  padding: 0;
-
-  /* these two usually create the “boxed” look + scroll container */
-  max-height: none;
-  overflow: visible;
+  flex: 0 0 420px;
+  display: flex;
+  justify-content: center;
 }
 
-
-@media (max-width: 768px) {
-  .app-main {
+@media (max-width: 600px) {
+  .app-name {
     grid-template-columns: 1fr;
   }
 
@@ -94,6 +91,7 @@ body {
     font-size: 2.5rem;
   }
 }
+
 
 /* Music Player Styles */
 .music-player {
@@ -104,6 +102,9 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
+
+
+
 
 .track-info {
   text-align: center;
@@ -207,16 +208,23 @@ body {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
+
   width: 50px;
   height: 50px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 1.2rem;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  line-height: 1;          
+  padding: 0;              
 }
+
 
 .control-btn:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -442,13 +450,11 @@ body {
 
 /* All Songs Styles */
 .all-songs {
-  /* floating panel on the right */
   width: min(420px, 92vw);
-  margin-left: auto;
-  margin-right: 4rem;
-  margin-top: 3.5rem;
 
-  /* glass panel look */
+  /* REMOVE manual positioning */
+  margin: 0;
+
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
   border-radius: 18px;
@@ -457,8 +463,9 @@ body {
 
   padding: 1.25rem 1.25rem 1rem;
   max-height: 520px;
-  overflow: hidden; /* header stays clean; list scrolls */
+  overflow: hidden;
 }
+
 
 .all-songs h2 {
   font-size: 1.05rem;
@@ -566,11 +573,28 @@ body {
 
 /* Responsive: center panel on small screens */
 @media (max-width: 768px) {
-  .all-songs {
-    margin: 1.5rem auto 0;
-    width: min(520px, 92vw);
+  .content-section {
+    flex-direction: column;
+    align-items: center;
   }
 }
+
+.app-name {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+
+  padding-top: 3.5rem;
+}
+
+.player-section {
+  flex: 0 0 520px;
+  display: block;           /* no flex centering */
+}
+
+
 
 .song-artist {
   font-size: 0.9rem;

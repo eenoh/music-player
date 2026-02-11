@@ -85,14 +85,66 @@ const songs: Song[] = [
 
 export const useMusic = () => {
   const [allSongs, setAllSongs] = useState<Song[]>(songs);
-  const [currentTrack, setCurrentTrack] = useState<Song | null>(null);
+  const [currentTrack, setCurrentTrack] = useState<Song>(songs[0]);
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [volume, setVolume] = useState<number>(1);
 
   const handlePlaySong = (song: Song, index: number) => {
     setCurrentTrack(song);
     setCurrentTrackIndex(index);
+    setIsPlaying(false);
+  };
+
+  const nextTrack = () => {
+    setCurrentTrackIndex((prev) => {
+      const nextIndex = (prev + 1) % allSongs.length;
+      setCurrentTrack(allSongs[nextIndex]);
+      return nextIndex;
+    });
+    setIsPlaying(false);
+  }
+
+  const prevTrack = () => {
+    setCurrentTrackIndex((prev) => {
+      const nextIndex = (prev - 1 + allSongs.length) % allSongs.length;
+      setCurrentTrack(allSongs[nextIndex]);
+      return nextIndex;
+    });
+    setIsPlaying(false);
   };
 
 
-  return { allSongs, handlePlaySong, currentTrackIndex, currentTrack };
+  const formatTime = (time: string | number) => {
+    if (typeof time === "string" || time === undefined) return "0:00";
+
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+
+    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+  }
+
+  const play = () => setIsPlaying(true);
+  const pause = () => setIsPlaying(false);
+
+  return { 
+    allSongs, 
+    handlePlaySong, 
+    currentTrackIndex, 
+    currentTrack, 
+    setCurrentTime, 
+    currentTime, 
+    formatTime, 
+    duration, 
+    setDuration,
+    nextTrack,
+    prevTrack,
+    play,
+    pause,
+    isPlaying,
+    volume,
+    setVolume
+  };
 } 

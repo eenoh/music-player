@@ -1,4 +1,4 @@
-import { useMusic } from "../hooks/useMusic"
+import { useMusic } from "../context/MusicContext";
 
 type Song = {
   readonly id: number;
