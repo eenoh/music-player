@@ -26,12 +26,12 @@ export const MusicPlayer = () => {
     const newTime = parseFloat(e.target.value);
     audio.currentTime = newTime;
     setCurrentTime(newTime);
-  }
+  };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
-  }
+  };
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -85,15 +85,18 @@ export const MusicPlayer = () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.removeEventListener("ended", handleEnded);
     };
-  }, [currentTrack, setDuration, setCurrentTime, nextTrack, isPlaying]);
-
+  }, [currentTrack, setDuration, setCurrentTime, nextTrack]);
 
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className="music-player">
-
-      <audio ref={audioRef} src={currentTrack.url} preload="metadata" crossOrigin="anonymous" />
+      <audio
+        ref={audioRef}
+        src={currentTrack.url}
+        preload="metadata"
+        crossOrigin="anonymous"
+      />
 
       <div className="track-info">
         <h3 className="track-title">{currentTrack.title}</h3>
@@ -101,9 +104,7 @@ export const MusicPlayer = () => {
       </div>
 
       <div className="progress-container">
-        <span className="time">
-          {formatTime(currentTime)}
-        </span>
+        <span className="time">{formatTime(currentTime)}</span>
 
         <input
           type="range"
@@ -116,29 +117,31 @@ export const MusicPlayer = () => {
           style={{ ["--progress" as any]: `${progressPercentage}%` }}
         />
 
-        <span className="time">
-          {formatTime(duration)}
-        </span>
+        <span className="time">{formatTime(duration)}</span>
       </div>
 
       <div className="controls">
-        <button className="control-btn" onClick={prevTrack}>⏮</button>
-        <button 
-          className="control-btn play-btn" 
-          onClick={() => isPlaying ? pause() : play()}
+        <button className="control-btn" onClick={prevTrack}>
+          ⏮
+        </button>
+        <button
+          className="control-btn play-btn"
+          onClick={() => (isPlaying ? pause() : play())}
         >
           {isPlaying ? "⏸" : "▶"}
         </button>
-        <button className="control-btn" onClick={nextTrack}>⏭</button>
+        <button className="control-btn" onClick={nextTrack}>
+          ⏭
+        </button>
       </div>
 
       <div className="volume-container">
         <span className="volume-icon">🔊</span>
-        <input 
-          type="range" 
-          min="0" 
-          max="1" 
-          step="0.01" 
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
           className="volume-bar"
           onChange={handleVolumeChange}
           value={volume}
