@@ -1,12 +1,4 @@
-import { useMusic } from "../context/MusicContext";
-
-type Song = {
-  readonly id: number;
-  title: string;
-  artist: string;
-  url: string;
-  duration: string;
-}
+import { useMusic, type Song } from "../context/MusicContext";
 
 export const AllSongs = () => {
   const {allSongs, handlePlaySong, currentTrackIndex} = useMusic();
